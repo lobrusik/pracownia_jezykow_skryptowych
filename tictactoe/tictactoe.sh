@@ -5,7 +5,7 @@ player="X"
 save="tictactoe_save.txt"
 
 
-draw_board() {
+draw_board(){
     clear
     echo "3 takie same znaki w jednej linii = WYGRANA"
     echo " ---------------------"
@@ -15,7 +15,7 @@ draw_board() {
     echo " ---+---+---"
     echo "  ${board[6]} | ${board[7]} | ${board[8]} "
     echo " ---------------------"
-    echo "Ruch: $player"
+    echo ""
 }
 
 if_win() {
@@ -75,28 +75,80 @@ load_game(){
     fi
 }
 
+computer(){
+    echo "Ruch komputera"
+    sleep 2
+
+    for i in {0..8} #próbuje wygrać
+    do 
+        if [[ "${board[$i]}" == " " || "${board[$i]}" == "" ]]
+        then
+            board[$i]="O"
+            if if_win
+            then
+                return
+            fi
+            board[$i]=" "
+        fi
+    done
+
+    for i in {0..8} #zablokowac gracza
+    do
+        if [[ "${board[$i]}" == " " || "${board[$i]}" == "" ]]
+        then
+            board[$i]="X"
+            if if_win
+            then
+                board[$i]="O"
+                return
+            fi
+            board[$i]=" "
+        fi
+    done
+
+    if [[ ${board[4]} == " " ]] #zająć środek
+    then
+        board[4]="O"
+        return
+    fi
+
+    for i in {0..8} #obojetnie gdzie wolne
+    do
+        if [[  "${board[$i]}" == " " || "${board[$i]}" == "" ]]
+        then
+            board[$i]="O"
+            return
+        fi
+    done
+}
+
 echo "Czy wczytać zapisana grę? (t/n)"
 read -r choice
 [[ "$choice" == "t" ]] && load_game
 
-while true; 
+while true 
     do
         draw_board
-        read -p "Gracz $player wybiera pole (1-9) lub, s, by zapisać i wyjść: " input
-        if [[ "$input" == "s" || "$input" == "S" ]]
-        then
-            save_game
-        fi
 
-        idx=$((input-1))
-        if [[ ! "$input" =~ ^[1-9]$ ]] || [[ "${board[$idx]}" != " " ]] 
+        if [[ "$player" == "X" ]]
         then
-            echo "Nieprawidłowy ruch! Spróbuj ponownie"
-            sleep 1
-            continue
-        fi
+            read -p "Gracz $player wybiera pole (1-9) lub, s, by zapisać i wyjść: " input
+            if [[ "$input" == "s" || "$input" == "S" ]]
+            then
+                save_game
+            fi
 
-        board[$idx]="$player"
+            idx=$((input-1))
+            if [[ ! "$input" =~ ^[1-9]$ ]] || [[ "${board[$idx]}" != " " ]] 
+            then
+                echo "Nieprawidłowy ruch! Spróbuj ponownie"
+                sleep 1
+                continue
+            fi
+            board[$idx]="$player"
+        else 
+            computer
+        fi
     
         if if_win 
         then

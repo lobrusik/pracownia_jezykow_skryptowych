@@ -12,5 +12,5 @@ Zamek należy stworzyć za pomocą skryptu napisanego w JS.
 * ✅ 3.5 Posiada mimum 4 okna, [d64a0f8](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/d64a0f8a0d025c9fbc275088517e4a8475d8a16b)
 * ✅ 4.0 Posiada fosę oraz most, [bb6defc](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/bb6defc611d6923117d3ca5cf883ce06a7f133be)
 * ✅ 4.5 Posiada bramę oraz minimum 2 wieże, [5ff8794](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/5ff8794042928efcd95f484151d0040119f07bcc)
-* ✅ 5.0 Zamek ma minimum dwa poziomy (piętra) na które można wejść [477e7b6]https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/477e7b6ea88df4ea2787176836a0b2eb784ea4d3
+* ✅ 5.0 Zamek ma minimum dwa poziomy (piętra) na które można wejść [477e7b6](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/477e7b6ea88df4ea2787176836a0b2eb784ea4d3)
 <br>[Folder z nagraniami](minecraft/nagrania)

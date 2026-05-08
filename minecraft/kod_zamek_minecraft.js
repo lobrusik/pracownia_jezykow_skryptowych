@@ -4,6 +4,16 @@ const PODLOGA = COBBLESTONE;
 const DREWNO = PLANKS_SPRUCE;
 const POWIETRZE = AIR;
 const OKNO = GLASS;
+const PLOTEK = SPRUCE_FENCE;
+
+function budujFoseIMost(bx: number, by: number, bz: number) {
+    blocks.fill(POWIETRZE, world(bx - 4, by - 3, bz - 4), world(bx + 44, by - 1, bz + 44));
+    blocks.fill(WATER, world(bx - 10, by - 3, bz - 10), world(bx + 50, by - 2, bz + 50));
+    blocks.fill(MUR, world(bx, by - 3, bz), world(bx + 40, by - 1, bz + 40));
+    blocks.fill(DREWNO, world(bx + 18, by -1, bz - 7), world(bx + 22, by - 1, bz));
+    blocks.fill(PLOTEK, world(bx + 18, by, bz - 7), world(bx + 18, by, bz - 1)); 
+    blocks.fill(PLOTEK, world(bx + 22, by, bz - 7), world(bx + 22, by, bz - 1));
+}
 
 function budujMury(bx: number, by: number, bz: number) {
     blocks.fill(MUR, world(bx, by, bz), world(bx + 40, by + 12, bz + 40));
@@ -53,6 +63,7 @@ player.onChat("zamek", function () {
     let by = Math.round(player.position().getValue(Axis.Y));
     let bz = Math.round(player.position().getValue(Axis.Z)) + 15;
 
+    budujFoseIMost(bx, by, bz);
     budujMury(bx, by, bz);
     budujDonzon(bx + 20, by, bz + 20);
 

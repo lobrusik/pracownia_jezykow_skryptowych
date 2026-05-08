@@ -3,6 +3,7 @@ const DACH = DARK_PRISMARINE;
 const PODLOGA = COBBLESTONE;
 const DREWNO = PLANKS_SPRUCE;
 const POWIETRZE = AIR;
+const OKNO = GLASS;
 
 function budujMury(bx: number, by: number, bz: number) {
     blocks.fill(MUR, world(bx, by, bz), world(bx + 40, by + 12, bz + 40));
@@ -13,6 +14,18 @@ function budujMury(bx: number, by: number, bz: number) {
     blocks.fill(DACH, world(bx + 15, by + 17, bz), world(bx + 25, by + 18, bz + 2));
     blocks.fill(DACH, world(bx + 18, by + 19, bz), world(bx + 22, by + 21, bz + 2));
 
+    //Przód
+    blocks.fill(OKNO, world(bx + 7, by + 4, bz), world(bx + 11, by + 8, bz + 2));
+    blocks.fill(OKNO, world(bx + 29, by + 4, bz), world(bx + 33, by + 8, bz + 2));
+    //Tył
+    blocks.fill(OKNO, world(bx + 7, by + 4, bz + 38), world(bx + 11, by + 8, bz + 40));
+    blocks.fill(OKNO, world(bx + 29, by + 4, bz + 38), world(bx + 33, by + 8, bz + 40));
+    //Lewa ściana
+    blocks.fill(OKNO, world(bx, by + 4, bz + 10), world(bx + 2, by + 8, bz + 15));
+    blocks.fill(OKNO, world(bx, by + 4, bz + 25), world(bx + 2, by + 8, bz + 30));
+    //Prawa ściana
+    blocks.fill(OKNO, world(bx + 38, by + 4, bz + 10), world(bx + 40, by + 8, bz + 15));
+    blocks.fill(OKNO, world(bx + 38, by + 4, bz + 25), world(bx + 40, by + 8, bz + 30));
 
     blocks.fill(DACH, world(bx, by + 12, bz), world(bx + 40, by + 13, bz + 40));
     blocks.fill(POWIETRZE, world(bx + 4, by + 12, bz + 4), world(bx + 36, by + 13, bz + 36));

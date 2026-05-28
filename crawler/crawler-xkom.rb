@@ -1,7 +1,19 @@
 require 'nokogiri'
-url = 'https://www.x-kom.pl/g-64/c/2073-klocki-lego.html'
+require 'cgi'
 
-puts "Pobieranie strony..."
+print "Wpisz czego szukasz w x-kom: "
+keyword = gets.chomp
+
+if keyword.empty?
+  puts "Nie wpisano żadnego słowa kluczowego!"
+  exit
+end
+
+encoded_keyword = CGI.escape(keyword)
+url = "https://www.x-kom.pl/szukaj?q=#{encoded_keyword}"
+
+puts "\Przeszukiwanie i pobieranie strony... #{url}"
+
 html = `curl -s -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" "#{url}"`
 
 if html.nil? || html.empty?
@@ -11,7 +23,7 @@ end
 
 doc = Nokogiri::HTML(html)
 
-puts "\nZnalezione produkty:"
+puts "\nZnalezione produkty dla: #{keyword}"
 count = 0
 
 doc.css('h3').each do |h3|

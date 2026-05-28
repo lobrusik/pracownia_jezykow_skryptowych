@@ -1,5 +1,17 @@
 require 'nokogiri'
 require 'cgi'
+require 'sequel'
+
+DB = Sequel.sqlite('xkom_crawler.db')
+unless DB.table_exists?(:products)
+  DB.create_table :products do
+    primary_key :id 
+    String :title, null: false 
+    String :price
+    String :link, unique: true
+    String :specifications
+  end
+end
 
 BASE_URL = 'https://www.x-kom.pl'
 
@@ -23,7 +35,7 @@ if html.nil? || html.empty?
 end
 
 doc = Nokogiri::HTML(html)
-puts "\nAnalizowanie produktów..."
+puts "\nAnalizowanie produktów i zapisywanie do bazy danych..."
 count = 0
 
 scraped_products = []
@@ -80,35 +92,30 @@ doc.css('h3').each do |h3|
     prefixes << prefix
   end
 
-  product_data = {
-    title: title,
-    price: price,
-    link: product_url,
-    specs: final_specs
-  }
-  scraped_products << product_data
-
-  puts ""
-  puts "Produkt: #{product_data[:title]}"
-  puts "Cena: #{product_data[:price]}"
-  puts "Link: #{product_data[:link]}"
-  puts "Specyfikacja:"
-  
-  if product_data[:specs].empty?
-    puts "  - Brak szczegółowych danych technicznych"
-  else
-    product_data[:specs].take(5).each do |spec|
-      puts "  - #{spec}"
+  specs_to_save = final_specs.empty? ? "Brak danych" : final_specs.take(5).join(" | ")
+  begin
+      DB[:products].insert(
+        title: title,
+        price: price,
+        link: product_url,
+        specifications: specs_to_save
+      )
+      puts "[BAZA DANYCH] Pomyślnie dodano produkt: #{title}"
+    rescue Sequel::UniqueConstraintViolation
+      puts "[BAZA DANYCH] Produkt już istnieje w bazie (pominięto duplikat): #{title}"
     end
-  end
-  puts "-" * 50
   
   count += 1
   sleep(1)
   break if count >= 3 
 end
 
-puts "\nZawartość pamięci bota po zakończeniu pracy:"
-scraped_products.each_with_index do |prod, index|
-  puts "[#{index + 1}] #{prod[:title]} -> URL: #{prod[:link]}"
+puts "KONTROLNY ODCZYT Z BAZY DANYCH:"
+DB[:products].each do |row|
+  puts "ID: #{row[:id]}"
+  puts "Tytuł: #{row[:title]}"
+  puts "Cena: #{row[:price]}"
+  puts "Link: #{row[:link]}"
+  puts "Spec: #{row[:specifications]}"
+  puts "-" * 40
 end

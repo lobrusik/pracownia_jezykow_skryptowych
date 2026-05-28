@@ -18,7 +18,7 @@ Zamek należy stworzyć za pomocą skryptu napisanego w JS.
 Należy stworzyć crawler produktów na Amazonie lub Allegro w Ruby wykorzystują bibliotekę Nokogiri. Ja zrobiłam crawler dla X-Kom, ponieważ w żaden sposób nie mogłam przebić się przez kod bęłdu 403.
 * ✅ 3.0 Należy pobrać podstawowe dane o produktach (tytuł, cena), dowolna kategoria, [0ef1495](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/0ef1495a6651da3a1baf99d94cc4b52e5445b710)
 * ✅ 3.5 Należy pobrać podstawowe dane o produktach wg słów kluczowych, [6049133](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/6049133564f35f5e1dc4812fa0741668092e3bf8)
-* ✅ 4.0 Należy rozszerzyć dane o produktach o dane szczegółowe widoczne tylko na podstronie o produkcie, [f91fb03](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/f91fb03e203fe4a3a992abdc641258ce33bb17a2)
-* ✅ 4.5 Należy zapisać linki do produktów, [ff732a0]([https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/5ff8794042928efcd95f484151d0040119f07bcc](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/ff732a0b09ae6ed52b86dc204a2bb513add45b78))
+* ✅ 4.0 Należy rozszerzyć dane o produktach o dane szczegółowe widoczne tylko na podstronie o produkcie, [f91fb03] (https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/f91fb03e203fe4a3a992abdc641258ce33bb17a2)
+* ✅ 4.5 Należy zapisać linki do produktów, [ff732a0](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/ff732a0b09ae6ed52b86dc204a2bb513add45b78)
 * ✅ 5.0 Dane należy zapisać w bazie danych np. SQLite via Sequel. [c12734a](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/c12734aa83ed474909f6d35fe8e8c7e0545ee6d9)
 <br>[Folder z nagraniami](crawler/nagrania)

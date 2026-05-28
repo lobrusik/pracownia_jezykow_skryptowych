@@ -1,6 +1,8 @@
 require 'nokogiri'
 require 'cgi'
 
+BASE_URL = 'https://www.x-kom.pl'
+
 print "Wpisz czego szukasz w x-kom: "
 keyword = gets.chomp
 
@@ -12,8 +14,7 @@ end
 encoded_keyword = CGI.escape(keyword)
 url = "https://www.x-kom.pl/szukaj?q=#{encoded_keyword}"
 
-puts "\Przeszukiwanie i pobieranie strony... #{url}"
-
+puts "\nPrzeszukiwanie listy i pobieranie strony: #{url}"
 html = `curl -s -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" "#{url}"`
 
 if html.nil? || html.empty?
@@ -22,8 +23,7 @@ if html.nil? || html.empty?
 end
 
 doc = Nokogiri::HTML(html)
-
-puts "\nZnalezione produkty dla: #{keyword}"
+puts "\nAnalizowanie produktów..."
 count = 0
 
 doc.css('h3').each do |h3|
@@ -35,13 +35,65 @@ doc.css('h3').each do |h3|
 
   price_match = parent.text.match(/\d+[\s\d]*,?\d*\s?zł/)
   next unless price_match
-  
   price = price_match[0]
 
-  puts "Produkt: #{title}"
-  puts "Cena:    #{price}"
-  puts "-" * 40
-  count += 1
-end
+  link_element = parent.at_css('a')
+  next unless link_element
+  
+  relative_link = link_element['href']
+  next if relative_link.nil?
 
-puts "Koniec. Znaleziono #{count} produnktów."
+  product_url = relative_link.start_with?('http') ? relative_link : "#{BASE_URL}#{relative_link}"
+
+  raw_specs = []
+
+  puts ""
+  puts "Produkt: #{title}"
+  puts "Cena: #{price}"
+  puts "Specyfikacja:"
+
+  product_html = `curl -s -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" "#{product_url}"`
+  
+  if product_html && !product_html.empty?
+    product_doc = Nokogiri::HTML(product_html)
+    
+    product_doc.css('div, span, li').each do |el|
+      text = el.text.strip
+      next unless text.include?(':')
+      next if text.length > 80 
+
+      if text.match?(/^(Seria|Wiek|Platforma|Gwarancja|Kod producenta|Rodzaj produktu|Liczba elementów|Wersja|PEGI):/)
+        # Zastępujemy wszelkie białe znaki (w tym tabulatory i ukryte spacje) pojedynczą spacją
+        clean_text = text.gsub(/\s+/, ' ').strip
+        next if clean_text.match?(/:$/)
+
+        raw_specs << clean_text
+      end
+    end
+  end
+  clean_specs = raw_specs.uniq
+  final_specs = []
+  prefixes = []
+
+  clean_specs.each do |spec|
+    prefix = spec.split(':').first
+    next if prefixes.include?(prefix) && prefix == "Platforma"
+    
+    final_specs << spec
+    prefixes << prefix
+  end
+
+  if final_specs.empty?
+    puts "  - Brak szczegółowych danych technicznych"
+  else
+    final_specs.take(5).each do |spec|
+      puts "  - #{spec}"
+    end
+  end
+
+  puts "-" * 50
+  
+  count += 1
+  sleep(1)
+  break if count >= 3 
+end

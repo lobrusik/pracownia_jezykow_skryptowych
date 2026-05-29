@@ -1,4 +1,4 @@
-local gra = require "na3"
+local gra = require "na35"
 
 function love.load()
     gra.load()

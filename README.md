@@ -23,3 +23,13 @@ Należy stworzyć crawler produktów na Amazonie lub Allegro w Ruby wykorzystuj�
 * ✅ 4.5 Należy zapisać linki do produktów, [ff732a0](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/ff732a0b09ae6ed52b86dc204a2bb513add45b78)
 * ✅ 5.0 Dane należy zapisać w bazie danych np. SQLite via Sequel. [c12734a](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/c12734aa83ed474909f6d35fe8e8c7e0545ee6d9)
 <br>[Folder z nagraniami](crawler/nagrania)
+## Zadanie 4 - Lua
+Należy stworzyć grę Tetris w Lua na frameworku Löve (https://love2d.org/).
+* ✅ 3.0 Postawowa wersja dekstopowa z obsługą na klawiaturze - minimum 4 rodzaje klocków, [62ee552](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/62ee552d895178abf934ab387c989783bbec4284)
+* ✅ 3.5 Zapis i odczyt gier, [0db5dfd](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/0db5dfd76cacf75127f3b95a2794eb9755a4b264)
+* ✅ 4.0 Dodanie efektów dźwiękowych przy akcjach, [1f68e4e](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/1f68e4e60b33d53f4520af428c02a3e2408621aa)
+* ✅ 4.5 Dodanie animacji przy zbijaniu klocków, [2dfa43e](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/2dfa43e42e58b0552e79f2de6c74d3bb3f0ac9df)
+* ✅ 5.0 Wersja na iOS lub Android z implementacją touch zamiast klawiatury. [63718b0](https://github.com/lobrusik/pracownia_jezykow_skryptowych/commit/63718b00748ef3314aac7c8ee852d6e911c8ee8d)
+<br>[Folder z nagraniami](tetris/nagrania)
+
+5.0 Wersja na iOS lub Android z implementacją touch zamiast klawiatury

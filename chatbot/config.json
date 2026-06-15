@@ -1,0 +1,8 @@
+{
+  "godziny_otwarcia": "Codziennie od 12:00 do 21:00",
+  "menu": [
+    {"nazwa": "Schabowy XXL", "cena": 35},
+    {"nazwa": "Końskie żeberka", "cena": 42},
+    {"nazwa": "Sum wąsaty", "cena": 38}
+  ]
+}
